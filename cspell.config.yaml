@@ -1,0 +1,11 @@
+version: 0.2
+language: en-US
+dictionaryDefinitions:
+  - name: custom
+    path: .dictionary.txt
+dictionaries:
+  - custom
+  - fullstack
+ignorePaths:
+  - .dictionary.txt
+  - .vscode

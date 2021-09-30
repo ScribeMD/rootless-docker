@@ -1,0 +1,34 @@
+name: Test
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository.
+        uses: actions/checkout@v2.3.4
+      - name: Set up Python.
+        id: set-up-python
+        uses: actions/setup-python@v2.2.2
+        with:
+          python-version: 3.9
+      - name: Install Poetry.
+        run: pip install poetry==1.2.0a2
+      - name: Install rootless Docker.
+        uses: ./
+      - name: Run pre-commit hooks.
+        uses: pre-commit/action@v2.0.3
+        env:
+          SKIP: no-commit-to-branch
+      - name: Send Slack notification with job status.
+        if: always()
+        uses: ScribeMD/slack-templates@0.1.0
+        with:
+          bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel-id: ${{ secrets.SLACK_ACTIONS_CHANNEL_ID }}
+          template: result

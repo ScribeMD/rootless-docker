@@ -1,0 +1,17 @@
+name: Notify Reviewers
+on:
+  pull_request:
+    types:
+      - review_requested
+jobs:
+  notify-reviewers:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository.
+        uses: actions/checkout@v2.3.4
+      - name: Send Slack notification requesting code review.
+        uses: ScribeMD/slack-templates@0.1.0
+        with:
+          bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel-id: ${{ secrets.SLACK_REVIEW_CHANNEL_ID }}
+          template: reviewers

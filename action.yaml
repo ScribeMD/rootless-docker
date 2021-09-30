@@ -1,0 +1,29 @@
+name: Rootless Docker
+author: Kurt von Laven
+description: Run Docker in Rootless Mode to Prevent Permission Errors
+branding:
+  icon: lock
+  color: blue
+runs:
+  using: composite
+  steps:
+    - name: Install rootless Docker.
+      run: >
+        curl
+        --fail
+        --silent
+        --show-error
+        --location https://get.docker.com/rootless |
+        sh
+      env:
+        FORCE_ROOTLESS_INSTALL: "1"
+      shell: bash
+    - name: Use rootless Docker.
+      run: docker context use rootless
+      shell: bash
+    - name: Start rootless Docker daemon.
+      run: |
+        PATH="/home/runner/bin:/sbin:/usr/sbin:$PATH" dockerd-rootless.sh &
+      env:
+        XDG_RUNTIME_DIR: /home/runner/.docker/run
+      shell: bash

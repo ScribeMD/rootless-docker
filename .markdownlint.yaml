@@ -1,0 +1,6 @@
+# Commitizen produces duplicate headings in CHANGELOG.md.
+no-duplicate-header:
+  siblings_only: true
+# GitHub Flavored Markdown most commonly uses 2 spaces.
+ul-indent:
+  indent: 2

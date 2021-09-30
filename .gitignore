@@ -1,0 +1,6 @@
+# Mega-Linter
+report/
+
+# npm
+node_modules
+package-lock.json

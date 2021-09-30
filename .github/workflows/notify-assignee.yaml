@@ -1,0 +1,17 @@
+name: Notify Assignee
+on:
+  pull_request:
+    types:
+      - assigned
+jobs:
+  notify-assignee:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository.
+        uses: actions/checkout@v2.3.4
+      - name: Send Slack notification assigning pull request.
+        uses: ScribeMD/slack-templates@0.1.0
+        with:
+          bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel-id: ${{ secrets.SLACK_ASSIGN_CHANNEL_ID }}
+          template: assignee

@@ -1,0 +1,28 @@
+name: Bump Version
+on:
+  push:
+    branches:
+      - main
+jobs:
+  bump-version:
+    name: Bump version, and update changelog with commitizen.
+    if: "!startsWith(github.event.head_commit.message, 'bump:')"
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository.
+        uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 0
+      - name: Push a commit to main to bump version and update changelog.
+        uses: commitizen-tools/commitizen-action@0.9.0
+        with:
+          branch: main
+          git_name: commitizen-github-action[bot]
+          git_email: commitizen-github-action[bot]@users.noreply.github.com
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Send Slack notification with job status.
+        uses: ScribeMD/slack-templates@0.1.0
+        with:
+          bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel-id: ${{ secrets.SLACK_ACTIONS_CHANNEL_ID }}
+          template: result
