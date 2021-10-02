@@ -12,6 +12,7 @@ Run Docker in Rootless Mode to Prevent Permission Errors
 
 - [rootless-docker](#rootless-docker)
   - [Usage](#usage)
+  - [Supported Runners](#supported-runners)
   - [Contributing](#contributing)
   - [Changelog](#changelog)
 
@@ -42,6 +43,14 @@ discusses rootless mode in detail.
 - name: Use Docker in rootless mode.
   uses: ScribeMD/rootless-docker@0
 ```
+
+## Supported Runners
+
+- Tested on `ubuntu-20.04`
+- Probably works on `ubuntu-18.04`
+- May work on future versions of Linux
+- Definitely doesn't work on Windows or macOS since Docker only offers rootless
+  mode on Linux
 
 ## Contributing
 
