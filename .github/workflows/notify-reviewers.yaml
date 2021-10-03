@@ -7,8 +7,6 @@ jobs:
   notify-reviewers:
     runs-on: ubuntu-20.04
     steps:
-      - name: Check out repository.
-        uses: actions/checkout@v2.3.4
       - name: Send Slack notification requesting code review.
         uses: ScribeMD/slack-templates@0.1.0
         with:
