@@ -33,7 +33,13 @@ many benefits as it is:
 - and fast (~15 seconds on GitHub-hosted runner `ubuntu-20.04`)
 
 [Docker's documentation](https://docs.docker.com/engine/security/rootless/)
-discusses rootless mode in detail.
+discusses rootless mode in detail. If you are running a supported Linux
+distribution locally, you can follow the steps there to use rootless mode. If
+you aren't sure, you can ask Docker whether it is in rootless mode:
+
+```bash
+docker info --format "{{ .ClientInfo.Context }}"
+```
 
 ## Usage
 
