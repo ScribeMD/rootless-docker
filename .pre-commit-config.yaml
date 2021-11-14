@@ -23,12 +23,27 @@ repos:
         files: pyproject\.toml
         pass_filenames: false
         description: Check that Poetry dependencies are properly specified.
-      - id: check-poetry-lock
-        name: Check Poetry lock file matches pyproject.toml
-        entry: poetry lock --check
+      - id: poetry-lock
+        name: Lock Poetry dependencies
+        entry: poetry lock
         language: system
         files: poetry\.lock|pyproject\.toml
         pass_filenames: false
+        args: [--no-update]
+        description: >
+          Update poetry.lock to match pyproject.toml without upgrading already
+          locked dependencies.
+      - id: poetry-install
+        name: Install Poetry dependencies
+        entry: poetry install
+        language: system
+        always_run: true
+        pass_filenames: false
+        stages:
+          - commit
+          - push
+          - post-checkout
+        description: Install all Poetry dependencies from poetry.lock.
       - id: mega-linter
         name: Run documentation flavor of Mega-Linter
         entry: >

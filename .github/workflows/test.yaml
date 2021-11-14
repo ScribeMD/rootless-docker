@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: 3.9.7
       - name: Install Poetry.
-        run: pip install poetry==1.2.0a2
+        run: pip install poetry==1.1.11
       - name: Use Docker in rootless mode.
         uses: ./
       - name: Run pre-commit hooks.
