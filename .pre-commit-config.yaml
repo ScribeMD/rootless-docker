@@ -2,6 +2,7 @@ default_language_version:
   python: python3.9
 default_stages:
   - commit
+  - push
 minimum_pre_commit_version: 2.15.0
 repos:
   # Automatically fix issues.
@@ -72,9 +73,6 @@ repos:
       - id: detect-private-key
       - id: forbid-new-submodules
       - id: no-commit-to-branch
-        stages:
-          - commit
-          - push
 
   # Check for issues.
 
