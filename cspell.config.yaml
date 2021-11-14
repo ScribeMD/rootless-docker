@@ -7,5 +7,4 @@ dictionaries:
   - custom
   - fullstack
 ignorePaths:
-  - .dictionary.txt
   - .vscode
