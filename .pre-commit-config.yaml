@@ -16,17 +16,18 @@ repos:
         stages:
           - merge-commit
       - id: check-poetry
-        name: Check Poetry considers pyproject.toml valid
+        name: Validate structure of pyproject.toml
         entry: poetry check
         language: system
         pass_filenames: false
+        description: Check that Poetry dependencies are properly specified.
       - id: check-poetry-lock
         name: Check Poetry lock file matches pyproject.toml
         entry: poetry lock --check
         language: system
         pass_filenames: false
       - id: mega-linter
-        name: Mega-Linter
+        name: Run documentation flavor of Mega-Linter
         entry: >
           --user root
           --env DEFAULT_WORKSPACE=/src
@@ -34,7 +35,6 @@ repos:
           nvuillam/mega-linter-documentation:v4.46.0
         language: docker_image
         pass_filenames: false
-        description: Run Mega-Linter on changed files.
         args: [--fix]
 
   ## Markdown
