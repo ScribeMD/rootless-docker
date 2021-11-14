@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Send Slack notification requesting code review.
-        uses: ScribeMD/slack-templates@0.1.0
+        uses: ScribeMD/slack-templates@0.1.1
         with:
           bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel-id: ${{ secrets.SLACK_REVIEW_CHANNEL_ID }}

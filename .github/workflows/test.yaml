@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Check out repository.
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.4.0
       - name: Set up Python.
         id: set-up-python
         uses: actions/setup-python@v2.2.2
@@ -27,7 +27,7 @@ jobs:
           SKIP: no-commit-to-branch
       - name: Send Slack notification with job status.
         if: always()
-        uses: ScribeMD/slack-templates@0.1.0
+        uses: ScribeMD/slack-templates@0.1.1
         with:
           bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel-id: ${{ secrets.SLACK_ACTIONS_CHANNEL_ID }}
