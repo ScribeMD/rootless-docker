@@ -1,2 +1,5 @@
 # Mega-Linter
 report/
+
+# Poetry
+.venv
