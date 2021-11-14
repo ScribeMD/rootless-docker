@@ -140,3 +140,9 @@ repos:
       - id: commitizen
         stages:
           - commit-msg
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 2.1.5
+    hooks:
+      - id: check-mailmap
+      - id: forbid-binary
+      - id: git-check
