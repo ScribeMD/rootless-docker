@@ -8,7 +8,4 @@ SHOW_ELAPSED_TIME: true
 JSON_PRETTIER_FILE_EXTENSIONS:
   - .json
   - .md
-JSON_ESLINT_PLUGIN_JSONC_PRE_COMMANDS:
-  # See https://github.com/nvuillam/mega-linter/issues/773.
-  - command: npm install eslint-plugin-jsonc@1.7.0
 SPELL_CSPELL_CONFIG_FILE: LINTER_DEFAULT
