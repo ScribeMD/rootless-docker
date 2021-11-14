@@ -16,7 +16,7 @@ jobs:
         id: set-up-python
         uses: actions/setup-python@v2.2.2
         with:
-          python-version: 3.9
+          python-version: 3.9.7
       - name: Install Poetry.
         run: pip install poetry==1.2.0a2
       - name: Use Docker in rootless mode.
