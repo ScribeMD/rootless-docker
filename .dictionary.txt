@@ -1,8 +1,2 @@
-blocklint
-commitizen
-dockerd
+COPYPASTE
 Laven
-nvuillam
-pyproject
-rootful
-sbin
