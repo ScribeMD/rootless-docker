@@ -1,5 +1,5 @@
 [build-system]
-requires = ["poetry-core>=1.0.6"]
+requires = ["poetry-core>=1.0.7"]
 build-backend = "poetry.core.masonry.api"
 
 [tool]
@@ -20,5 +20,5 @@ build-backend = "poetry.core.masonry.api"
   python = "^3.9"
 
   [tool.poetry.dev-dependencies]
-  commitizen = "^2.19.0"
+  commitizen = "^2.20.0"
   pre-commit = "^2.15.0"
