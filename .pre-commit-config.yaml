@@ -16,18 +16,32 @@ repos:
         language: fail
         stages:
           - merge-commit
+      - id: asdf-install
+        name: Install correct versions of tools managed by asdf
+        entry: asdf install
+        language: system
+        always_run: true
+        pass_filenames: false
+        stages:
+          - commit
+          - push
+          - post-checkout
+        description: >
+          Install or set versions of asdf-managed tools based on any
+          .tool-versions file from the root of this repository up to the $HOME
+          directory.
       - id: check-poetry
         name: Validate structure of pyproject.toml
         entry: poetry check
         language: system
-        files: pyproject\.toml
+        files: \.tool-versions|pyproject\.toml
         pass_filenames: false
         description: Check that Poetry dependencies are properly specified.
       - id: poetry-lock
         name: Lock Poetry dependencies
         entry: poetry lock
         language: system
-        files: poetry\.lock|pyproject\.toml
+        files: \.tool-versions|poetry\.lock|pyproject\.toml
         pass_filenames: false
         args: [--no-update]
         description: >

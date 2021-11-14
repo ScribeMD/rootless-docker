@@ -12,13 +12,23 @@ jobs:
     steps:
       - name: Check out repository.
         uses: actions/checkout@v2.4.0
-      - name: Set up Python.
-        id: set-up-python
-        uses: actions/setup-python@v2.2.2
+      - name: Install asdf-managed tools based on .tool-versions.
+        uses: asdf-vm/actions/install@v1.1.0
         with:
-          python-version: 3.9.7
-      - name: Install Poetry.
-        run: pip install poetry==1.1.11
+          asdf_branch: v0.8.1
+      - name: Add Poetry and its dependencies to PATH.
+        run: |
+          for version in ~/.asdf/installs/poetry/*; do
+            echo "$version/bin" >> "$GITHUB_PATH"
+          done
+          echo "${{ github.workspace }}"/.venv/bin >> "$GITHUB_PATH"
+      - name: Cache Poetry dependencies.
+        uses: actions/cache@v2.1.6
+        with:
+          path: .venv
+          key: poetry-${{ runner.os }}-${{ hashFiles('poetry.lock') }}
+      - name: Install Poetry dependencies.
+        run: poetry install
       - name: Use Docker in rootless mode.
         uses: ./
       - name: Run pre-commit hooks.
