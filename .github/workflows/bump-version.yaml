@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Check out repository.
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3.0.0
         with:
           fetch-depth: 0
       - name: Push a commit to main to bump version and update changelog.
-        uses: commitizen-tools/commitizen-action@0.9.0
+        uses: commitizen-tools/commitizen-action@0.12.0
         with:
           branch: main
           git_name: commitizen-github-action[bot]
