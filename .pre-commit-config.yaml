@@ -58,8 +58,8 @@ repos:
           - push
           - post-checkout
         description: Install all Poetry dependencies from poetry.lock.
-      - id: mega-linter-incremental
-        name: Run documentation flavor of Mega-Linter (skipping jscpd)
+      - id: megalinter-incremental
+        name: Run documentation flavor of MegaLinter (skipping jscpd)
         entry: mega-linter-runner
         language: node
         pass_filenames: false
@@ -73,14 +73,14 @@ repos:
           - --env
           - DISABLE_LINTERS=COPYPASTE_JSCPD
           - --release
-          - v5.0.7
+          - v5.10.0
           - --fix
         stages:
           - commit
         additional_dependencies:
-          - mega-linter-runner@v5.0.7
-      - id: mega-linter
-        name: Run documentation flavor of Mega-Linter
+          - mega-linter-runner@v5.10.0
+      - id: megalinter
+        name: Run documentation flavor of MegaLinter
         entry: mega-linter-runner
         language: node
         pass_filenames: false
@@ -90,12 +90,12 @@ repos:
           - --env
           - LOG_LEVEL=warning
           - --release
-          - v5.0.7
+          - v5.10.0
           - --fix
         stages:
           - push
         additional_dependencies:
-          - mega-linter-runner@v5.0.7
+          - mega-linter-runner@v5.10.0
 
   ## Markdown
   - repo: https://github.com/frnmst/md-toc
