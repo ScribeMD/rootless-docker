@@ -3,7 +3,7 @@ default_language_version:
 default_stages:
   - commit
   - push
-minimum_pre_commit_version: 2.15.0
+minimum_pre_commit_version: 2.18.1
 repos:
   # Automatically fix issues.
 
@@ -149,7 +149,7 @@ repos:
 
   ## Git
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.20.0
+    rev: v2.23.0
     hooks:
       - id: commitizen
         stages:
