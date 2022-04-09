@@ -135,6 +135,11 @@ repos:
 
   # Check for issues.
 
+  ## Pre-commit
+  - repo: meta
+    hooks:
+      - id: check-useless-excludes
+
   ## Python
   - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
     rev: v1.2.4
