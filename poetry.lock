@@ -265,8 +265,8 @@ python-versions = "*"
 
 [metadata]
 lock-version = "1.1"
-  python-versions = "^3.9.7"
-content-hash = "838ca6e07f122ea21edda5620adaa80a3689d5a3f9109ffd268e8bbb85cd25e3"
+  python-versions = "^3.10.4"
+content-hash = "3b29e8e4b39e9f467168339b16d981fa63b4dedc7eefb27546f6ad77e60c407d"
 
 [metadata.files]
 argcomplete = [
