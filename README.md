@@ -37,7 +37,7 @@ discusses rootless mode in detail. If you are running a supported Linux
 distribution locally, you can follow the steps there to use rootless mode. If
 you aren't sure, you can ask Docker whether it is in rootless mode:
 
-```bash
+```sh
 docker info --format "{{ .ClientInfo.Context }}"
 ```
 
