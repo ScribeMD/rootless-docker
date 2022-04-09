@@ -7,95 +7,20 @@ minimum_pre_commit_version: 2.18.1
 repos:
   # Automatically fix issues.
 
-  ## Polyglot
-  - repo: local
+  ## Python, Polyglot, Git, pre-commit
+  - repo: https://github.com/ScribeMD/pre-commit-hooks
+    rev: 0.2.0
     hooks:
-      - id: no-merge-commit
-        name: Don't create merge commits
-        entry: Prefer rebase workflow to merge commits
-        language: fail
-        stages:
-          - merge-commit
+      - id: no-merge-commits
       - id: asdf-install
-        name: Install correct versions of tools managed by asdf
-        entry: asdf install
-        language: system
-        always_run: true
-        pass_filenames: false
-        stages:
-          - commit
-          - push
-          - post-checkout
-        description: >
-          Install or set versions of asdf-managed tools based on any
-          .tool-versions file from the root of this repository up to the $HOME
-          directory.
-      - id: check-poetry
-        name: Validate structure of pyproject.toml
-        entry: poetry check
-        language: system
-        files: \.tool-versions|pyproject\.toml
-        pass_filenames: false
-        description: Check that Poetry dependencies are properly specified.
+      - id: poetry-check
       - id: poetry-lock
-        name: Lock Poetry dependencies
-        entry: poetry lock
-        language: system
-        files: \.tool-versions|poetry\.lock|pyproject\.toml
-        pass_filenames: false
-        args: [--no-update]
-        description: >
-          Update poetry.lock to match pyproject.toml without upgrading already
-          locked dependencies.
       - id: poetry-install
-        name: Install Poetry dependencies
-        entry: poetry install
-        language: system
-        always_run: true
-        pass_filenames: false
-        stages:
-          - commit
-          - push
-          - post-checkout
-        description: Install all Poetry dependencies from poetry.lock.
-      - id: megalinter-incremental
-        name: Run documentation flavor of MegaLinter (skipping jscpd)
-        entry: mega-linter-runner
-        language: node
-        pass_filenames: false
-        args:
-          - --flavor
-          - documentation
-          - --env
-          - LOG_LEVEL=warning
-          - --env
-          - VALIDATE_ALL_CODEBASE=false
-          - --env
-          - DISABLE_LINTERS=COPYPASTE_JSCPD
-          - --release
-          - v5.11.0
-          - --fix
-        stages:
-          - commit
-        additional_dependencies:
-          - mega-linter-runner@v5.11.0
+      - id: pre-commit-install
       - id: megalinter
-        name: Run documentation flavor of MegaLinter
-        entry: mega-linter-runner
-        language: node
-        pass_filenames: false
-        args:
-          - --flavor
-          - documentation
-          - --env
-          - LOG_LEVEL=warning
-          - --release
-          - v5.11.0
-          - --fix
-        stages:
-          - push
-        additional_dependencies:
-          - mega-linter-runner@v5.11.0
+        args: &megalinter-args [--flavor, documentation, --release, v5.11.0]
+      - id: megalinter-all
+        args: *megalinter-args
 
   ## Markdown
   - repo: https://github.com/frnmst/md-toc
