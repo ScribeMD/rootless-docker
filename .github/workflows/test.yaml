@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Check out repository.
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3.0.1
       - name: Install asdf-managed tools based on .tool-versions.
         uses: asdf-vm/actions/install@v1.1.0
         with:
