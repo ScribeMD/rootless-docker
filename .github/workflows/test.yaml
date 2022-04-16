@@ -15,7 +15,7 @@ jobs:
       - name: Install asdf-managed tools based on .tool-versions.
         uses: asdf-vm/actions/install@v1.1.0
         with:
-          asdf_branch: v0.9.0
+          asdf_branch: v0.10.0
       - name: Add Poetry and its dependencies to PATH.
         run: |
           for version in ~/.asdf/installs/poetry/*; do
