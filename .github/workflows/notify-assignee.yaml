@@ -5,6 +5,7 @@ on:
       - assigned
 jobs:
   notify-assignee:
+    name: Notify Assignee
     runs-on: ubuntu-20.04
     steps:
       - name: Send Slack notification assigning pull request.

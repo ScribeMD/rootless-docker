@@ -5,6 +5,7 @@ on:
       - review_requested
 jobs:
   notify-reviewers:
+    name: Notify Reviewers
     runs-on: ubuntu-20.04
     steps:
       - name: Send Slack notification requesting code review.
