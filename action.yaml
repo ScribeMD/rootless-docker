@@ -7,7 +7,25 @@ branding:
 runs:
   using: composite
   steps:
+    - name: Check whether rootless Docker is already installed and/or in-use.
+      id: rootless-docker
+      run: |
+        in_use="false"
+        if docker context ls --format "{{ .Name }}" | grep --quiet "^rootless$"
+        then
+          installed="true"
+          if [[ "$(docker info --format "{{ .ClientInfo.Context }}")" == "rootless" ]]
+          then
+            in_use="true"
+          fi
+        else
+          installed="false"
+        fi
+        echo "::set-output name=installed::$installed"
+        echo "::set-output name=in-use::$in_use"
+      shell: bash
     - name: Install rootless Docker.
+      if: steps.rootless-docker.outputs.installed != 'true'
       run: >
         curl
         --fail
@@ -19,9 +37,11 @@ runs:
         FORCE_ROOTLESS_INSTALL: "1"
       shell: bash
     - name: Use rootless Docker.
+      if: steps.rootless-docker.outputs.in-use != 'true'
       run: docker context use rootless
       shell: bash
     - name: Start rootless Docker daemon, and wait until it's listening.
+      if: steps.rootless-docker.outputs.in-use != 'true'
       run: |
         function awaitDockerd() {
           while IFS= read -r -t 60 line; do
