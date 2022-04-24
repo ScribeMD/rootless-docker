@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Check out repository.
-        uses: actions/checkout@v3.0.1
+        uses: actions/checkout@v3.0.2
       - name: Install asdf-managed tools based on .tool-versions.
         uses: asdf-vm/actions/install@v1.1.0
         with:
@@ -23,7 +23,7 @@ jobs:
           done
           echo "${{ github.workspace }}"/.venv/bin >> "$GITHUB_PATH"
       - name: Cache Poetry dependencies.
-        uses: actions/cache@v3.0.1
+        uses: actions/cache@v3.0.2
         with:
           path: .venv
           key: poetry-${{ runner.os }}-${{ hashFiles('poetry.lock') }}
@@ -39,7 +39,7 @@ jobs:
           extra_args: "--all-files --hook-stage push"
       - name: Send Slack notification with job status.
         if: always()
-        uses: ScribeMD/slack-templates@0.1.1
+        uses: ScribeMD/slack-templates@0.2.3
         with:
           bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel-id: ${{ secrets.SLACK_ACTIONS_CHANNEL_ID }}
