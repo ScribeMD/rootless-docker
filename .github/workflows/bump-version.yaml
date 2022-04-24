@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   bump-version:
-    name: Bump version, and update changelog with commitizen.
+    name: Bump Version
     if: "!startsWith(github.event.head_commit.message, 'bump:')"
     runs-on: ubuntu-20.04
     steps:
