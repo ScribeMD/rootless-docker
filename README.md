@@ -59,4 +59,4 @@ docker info --format "{{ .ClientInfo.Context }}"
 
 ## Changelog
 
-Please refer to [CHANGELOG.md](CHANGELOG.md).
+Please refer to [`CHANGELOG.md`](CHANGELOG.md).
