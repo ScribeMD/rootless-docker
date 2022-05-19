@@ -43,10 +43,10 @@ docker info --format "{{ .ClientInfo.Context }}"
 
 - Add the following step before your first use of Docker:
 
-```yaml
-- name: Use Docker in rootless mode.
-  uses: ScribeMD/rootless-docker@0.1.2
-```
+  ```yaml
+  - name: Use Docker in rootless mode.
+    uses: ScribeMD/rootless-docker@0.1.2
+  ```
 
 ## Supported Runners
 
