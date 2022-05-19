@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Check out repository.
         uses: actions/checkout@v3.0.2
+        with:
+          fetch-depth: 0
       - name: Use Docker in rootless mode.
         uses: ./
       - name: Run pre-commit hooks.
