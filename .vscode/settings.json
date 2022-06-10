@@ -4,6 +4,7 @@
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
+  "git.branchProtection": ["main"],
   "python.defaultInterpreterPath": "./.venv/bin/python",
   "python.terminal.activateEnvInCurrentTerminal": true,
   "search.exclude": {
