@@ -1,9 +1,9 @@
 # rootless-docker
 
 [![Test Workflow Status](https://github.com/ScribeMD/rootless-docker/workflows/Test/badge.svg)](https://github.com/ScribeMD/rootless-docker/actions/workflows/test.yaml)
-[![Git Hooks: pre-commit](https://img.shields.io/badge/pre--commit-Git_Hooks-orange?logo=precommit&logoColor=FAB040)](https://github.com/pre-commit/pre-commit)
+[![Git Hooks: pre-commit](https://img.shields.io/badge/pre--commit-Git_Hooks-orange?logo=precommit&logoColor=FAB040)](https://pre-commit.com/)
 [![Commit Style: Conventional Commits](https://img.shields.io/badge/Conventional_Commits-Commit_Style-yellow?logo=conventionalcommits&logoColor=FE5196)](https://conventionalcommits.org)
-[![Code Style: Prettier](https://img.shields.io/badge/Prettier-Code_Style-FF69B4?logo=prettier&logoColor=F7B93E)](https://github.com/prettier/prettier)
+[![Code Style: Prettier](https://img.shields.io/badge/Prettier-Code_Style-FF69B4?logo=prettier&logoColor=F7B93E)](https://prettier.io/)
 
 Run Docker in Rootless Mode to Prevent Permission Errors
 
