@@ -55,6 +55,4 @@ runs:
 
         (PATH="/home/runner/bin:/sbin:/usr/sbin:$PATH" dockerd-rootless.sh &) |&
         awaitDockerd
-      env:
-        XDG_RUNTIME_DIR: /home/runner/.docker/run
       shell: bash
