@@ -38,7 +38,12 @@ runs:
       shell: bash
     - name: Use rootless Docker.
       if: steps.rootless-docker.outputs.in-use != 'true'
-      run: docker context use rootless
+      run: |
+        if [[ -z $XDG_RUNTIME_DIR ]]; then
+          echo XDG_RUNTIME_DIR=~/.docker/run >>"$GITHUB_ENV"
+        fi
+        echo ~/bin >>"$GITHUB_PATH"
+        docker context use rootless
       shell: bash
     - name: Start rootless Docker daemon, and wait until it's listening.
       if: steps.rootless-docker.outputs.in-use != 'true'
@@ -53,6 +58,6 @@ runs:
           return 1
         }
 
-        (PATH="/home/runner/bin:/sbin:/usr/sbin:$PATH" dockerd-rootless.sh &) |&
+        (PATH="/sbin:/usr/sbin:$PATH" dockerd-rootless.sh &) |&
         awaitDockerd
       shell: bash
