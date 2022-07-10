@@ -21,6 +21,7 @@ Run Docker in Rootless Mode to Prevent Permission Errors
 - [rootless-docker](#rootless-docker)
   - [Usage](#usage)
   - [Supported Runners](#supported-runners)
+  - [Permissions](#permissions)
   - [Changelog](#changelog)
 
 <!--TOC-->
@@ -64,6 +65,12 @@ docker info --format "{{ .ClientInfo.Context }}"
 - May work on future versions of Linux
 - Definitely doesn't work on Windows or macOS since Docker only offers rootless
   mode on Linux
+
+## Permissions
+
+No
+[permissions](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token)
+are required.
 
 ## Changelog
 
