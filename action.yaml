@@ -61,6 +61,7 @@ runs:
           (PATH="/sbin:/usr/sbin:$PATH" dockerd-rootless.sh &) |&
           awaitDockerd
         fi
+        sudo systemctl start docker.service docker.socket
       env:
         FORCE_ROOTLESS_INSTALL: "1"
       shell: bash
