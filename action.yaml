@@ -57,7 +57,7 @@ runs:
           sh)"
         echo "$install_script_output"
         docker context use rootless
-        if !grep --quiet "$success_sentinel" <<<"$install_script_output"; then
+        if ! grep --quiet "$success_sentinel" <<<"$install_script_output"; then
           (PATH="/sbin:/usr/sbin:$PATH" dockerd-rootless.sh &) |&
           awaitDockerd
         fi
