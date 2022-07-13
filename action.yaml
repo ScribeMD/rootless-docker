@@ -24,40 +24,43 @@ runs:
         echo "::set-output name=installed::$installed"
         echo "::set-output name=in-use::$in_use"
       shell: bash
-    - name: Install rootless Docker.
-      if: steps.rootless-docker.outputs.installed != 'true'
-      run: >
-        curl
-        --fail
-        --silent
-        --show-error
-        --location https://get.docker.com/rootless |
-        sh
-      env:
-        FORCE_ROOTLESS_INSTALL: "1"
-      shell: bash
-    - name: Use rootless Docker.
+    - name: Stop Docker daemon.
       if: steps.rootless-docker.outputs.in-use != 'true'
+      run: sudo systemctl stop docker.service docker.socket
+      shell: bash
+    - name: Set environment variables recommended by rootless Docker install script.
+      if: steps.rootless-docker.outputs.installed != 'true'
       run: |
         if [[ -z $XDG_RUNTIME_DIR ]]; then
           echo XDG_RUNTIME_DIR=~/.docker/run >>"$GITHUB_ENV"
         fi
         echo ~/bin >>"$GITHUB_PATH"
-        docker context use rootless
       shell: bash
-    - name: Start rootless Docker daemon, and wait until it's listening.
-      if: steps.rootless-docker.outputs.in-use != 'true'
+    - name: Install rootless Docker, start daemon, and wait until it's listening.
+      if: steps.rootless-docker.outputs.installed != 'true'
       run: |
+        success_sentinel="API listen on $XDG_RUNTIME_DIR/docker.sock"
         function awaitDockerd() {
           while IFS= read -r -t 60 line; do
             echo "$line"
-            [[ "$line" = *"API listen on $XDG_RUNTIME_DIR/docker.sock"* ]] &&
-              return
+            [[ "$line" = *"$success_sentinel"* ]] && return
           done
           echo "Timed out waiting for Docker daemon to listen." >&2
           return 1
         }
 
-        (PATH="/sbin:/usr/sbin:$PATH" dockerd-rootless.sh &) |&
-        awaitDockerd
+        install_script_output="$(curl \
+          --fail \
+          --silent \
+          --show-error \
+          --location https://get.docker.com/rootless |
+          sh)"
+        echo "$install_script_output"
+        docker context use rootless
+        if !grep --quiet "$success_sentinel" <<<"$install_script_output"; then
+          (PATH="/sbin:/usr/sbin:$PATH" dockerd-rootless.sh &) |&
+          awaitDockerd
+        fi
+      env:
+        FORCE_ROOTLESS_INSTALL: "1"
       shell: bash
