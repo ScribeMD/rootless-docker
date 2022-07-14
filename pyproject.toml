@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool]
   [tool.commitizen]
-  version = "0.1.4"
+  version = "0.1.5"
   version_files = [
     "pyproject.toml:version",
     "README.md:rootless-docker@"
@@ -12,7 +12,7 @@ build-backend = "poetry.core.masonry.api"
 
   [tool.poetry]
   name = "rootless-docker"
-  version = "0.1.4"
+  version = "0.1.5"
   description = "Run Docker in Rootless Mode to Prevent Permission Errors"
   authors = ["Kurt von Laven <kurt.von.laven@gmail.com>"]
   license = "MIT"
