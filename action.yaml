@@ -26,7 +26,7 @@ runs:
       shell: bash
     - name: Stop rootful Docker daemon.
       if: steps.rootless-docker.outputs.in-use != 'true'
-      run: sudo systemctl stop docker.service docker.socket
+      run: sudo systemctl stop docker.service
       shell: bash
     - name: Install rootless Docker, start daemon, and wait until it's listening.
       if: steps.rootless-docker.outputs.installed != 'true'
@@ -58,7 +58,18 @@ runs:
           (PATH="/sbin:/usr/sbin:$PATH" dockerd-rootless.sh &) |&
           awaitDockerd
         fi
-        sudo systemctl start docker.service docker.socket
       env:
         FORCE_ROOTLESS_INSTALL: "1"
+      shell: bash
+    - name: Proxy bidirectionally between rootful and rootless Docker sockets.
+      if: steps.rootless-docker.outputs.in-use != 'true'
+      run: >
+        sudo systemd-run
+        --unit=docker-proxy.service
+        --description="Bidirectional proxy between rootful and rootless Docker sockets"
+        --service-type=exec
+        --property=Requires=docker.socket
+        --property=PrivateNetwork=true
+        --property=PrivateTmp=true
+        /lib/systemd/systemd-socket-proxyd "$XDG_RUNTIME_DIR/docker.sock"
       shell: bash
