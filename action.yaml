@@ -28,17 +28,14 @@ runs:
       if: steps.rootless-docker.outputs.in-use != 'true'
       run: sudo systemctl stop docker.service docker.socket
       shell: bash
-    - name: Set environment variables recommended by rootless Docker install script.
-      if: steps.rootless-docker.outputs.installed != 'true'
-      run: |
-        if [[ -z $XDG_RUNTIME_DIR ]]; then
-          echo XDG_RUNTIME_DIR=~/.docker/run >>"$GITHUB_ENV"
-        fi
-        echo ~/bin >>"$GITHUB_PATH"
-      shell: bash
     - name: Install rootless Docker, start daemon, and wait until it's listening.
       if: steps.rootless-docker.outputs.installed != 'true'
       run: |
+        echo ~/bin >>"$GITHUB_PATH"
+        if [[ -z $XDG_RUNTIME_DIR ]]; then
+          XDG_RUNTIME_DIR=~/.docker/run
+          echo XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" >>"$GITHUB_ENV"
+        fi
         success_sentinel="API listen on $XDG_RUNTIME_DIR/docker.sock"
         function awaitDockerd() {
           while IFS= read -r -t 60 line; do
