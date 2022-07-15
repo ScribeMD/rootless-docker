@@ -24,7 +24,7 @@ runs:
         echo "::set-output name=installed::$installed"
         echo "::set-output name=in-use::$in_use"
       shell: bash
-    - name: Stop Docker daemon.
+    - name: Stop rootful Docker daemon.
       if: steps.rootless-docker.outputs.in-use != 'true'
       run: sudo systemctl stop docker.service docker.socket
       shell: bash
