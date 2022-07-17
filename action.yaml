@@ -36,11 +36,10 @@ runs:
           XDG_RUNTIME_DIR=~/.docker/run
           echo XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" >>"$GITHUB_ENV"
         fi
-        success_sentinel="API listen on $XDG_RUNTIME_DIR/docker.sock"
         function awaitDockerd() {
           while IFS= read -r -t 60 line; do
             echo "$line"
-            [[ "$line" = *"$success_sentinel"* ]] && return
+            [[ "$line" = *"API listen on $XDG_RUNTIME_DIR/docker.sock"* ]] && return
           done
           echo "Timed out waiting for Docker daemon to listen." >&2
           return 1
@@ -54,7 +53,7 @@ runs:
           sh)"
         echo "$install_script_output"
         docker context use rootless
-        if ! grep --quiet "$success_sentinel" <<<"$install_script_output"; then
+        if grep --quiet "systemd not detected, dockerd-rootless.sh needs to be started manually" <<<"$install_script_output"; then
           (PATH="/sbin:/usr/sbin:$PATH" dockerd-rootless.sh &) |&
           awaitDockerd
         fi
