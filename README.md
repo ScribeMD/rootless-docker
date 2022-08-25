@@ -38,7 +38,7 @@ many benefits as it is:
 - safer than elevating the runner to root
 - less brittle than changing the ownership/permissions of or deleting files
 - simpler than other ways of running rootless Docker
-- and fast (~15 seconds on GitHub-hosted runner `ubuntu-20.04`)
+- and fast (~15 seconds on GitHub-hosted runner `ubuntu-22.04`)
 
 [Docker's documentation](https://docs.docker.com/engine/security/rootless/)
 discusses rootless mode in detail. If you are running a supported Linux
@@ -60,8 +60,8 @@ docker info --format "{{ .ClientInfo.Context }}"
 
 ## Supported Runners
 
-- Tested on `ubuntu-20.04`
-- Probably works on `ubuntu-18.04`
+- Tested on `ubuntu-22.04`
+- Probably works on `ubuntu-18.04` and `ubuntu-20.04`
 - May work on future versions of Linux
 - Definitely doesn't work on Windows or macOS since Docker only offers rootless
   mode on Linux
