@@ -1,3 +1,2 @@
 Laven
-proxyd
 setuptools
