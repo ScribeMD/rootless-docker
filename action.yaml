@@ -10,16 +10,16 @@ runs:
     - name: Check whether rootless Docker is already installed and/or in-use.
       id: rootless-docker
       run: |
-        in_use="false"
-        if docker context ls --format "{{ .Name }}" | grep --quiet "^rootless$"
+        in_use='false'
+        if docker context ls --format '{{ .Name }}' | grep --quiet '^rootless$'
         then
-          installed="true"
-          if [[ "$(docker info --format "{{ .ClientInfo.Context }}")" == "rootless" ]]
+          installed='true'
+          if [[ "$(docker info --format '{{ .ClientInfo.Context }}')" == 'rootless' ]]
           then
-            in_use="true"
+            in_use='true'
           fi
         else
-          installed="false"
+          installed='false'
         fi
         echo "::set-output name=installed::$installed"
         echo "::set-output name=in-use::$in_use"
@@ -41,7 +41,7 @@ runs:
             echo "$line"
             [[ "$line" = *"API listen on $XDG_RUNTIME_DIR/docker.sock"* ]] && return
           done
-          echo "Timed out waiting for Docker daemon to listen." >&2
+          echo 'Timed out waiting for Docker daemon to listen.' >&2
           return 1
         }
 
@@ -53,7 +53,7 @@ runs:
           sh)"
         echo "$install_script_output"
         docker context use rootless
-        if grep --quiet "systemd not detected, dockerd-rootless.sh needs to be started manually" <<<"$install_script_output"; then
+        if grep --quiet 'systemd not detected, dockerd-rootless.sh needs to be started manually' <<<"$install_script_output"; then
           (PATH="/sbin:/usr/sbin:$PATH" dockerd-rootless.sh &) |&
           awaitDockerd
         fi
@@ -65,7 +65,7 @@ runs:
       run: >
         sudo systemd-run
         --unit=docker-proxy.service
-        --description="Bidirectional proxy between rootful and rootless Docker sockets"
+        --description='Bidirectional proxy between rootful and rootless Docker sockets'
         --service-type=exec
         --property=Requires=docker.socket
         --property=PrivateNetwork=true
