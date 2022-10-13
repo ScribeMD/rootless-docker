@@ -21,15 +21,15 @@ runs:
         else
           installed='false'
         fi
-        echo "::set-output name=installed::$installed"
-        echo "::set-output name=in-use::$in_use"
+        echo "INSTALLED=$installed" >>"$GITHUB_OUTPUT"
+        echo "IN_USE=$in_use" >>"$GITHUB_OUTPUT"
       shell: bash
     - name: Stop rootful Docker daemon.
-      if: steps.rootless-docker.outputs.in-use != 'true'
+      if: steps.rootless-docker.outputs.IN_USE != 'true'
       run: sudo systemctl stop docker.service
       shell: bash
     - name: Install rootless Docker, start daemon, and wait until it's listening.
-      if: steps.rootless-docker.outputs.installed != 'true'
+      if: steps.rootless-docker.outputs.INSTALLED != 'true'
       run: |
         echo ~/bin >>"$GITHUB_PATH"
         if [[ -z $XDG_RUNTIME_DIR ]]; then
@@ -61,7 +61,7 @@ runs:
         FORCE_ROOTLESS_INSTALL: "1"
       shell: bash
     - name: Proxy bidirectionally between rootful and rootless Docker sockets.
-      if: steps.rootless-docker.outputs.in-use != 'true'
+      if: steps.rootless-docker.outputs.IN_USE != 'true'
       run: >
         sudo systemd-run
         --unit=docker-proxy.service
