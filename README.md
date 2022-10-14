@@ -55,7 +55,7 @@ docker info --format "{{ .ClientInfo.Context }}"
 
   ```yaml
   - name: Use Docker in rootless mode.
-    uses: ScribeMD/rootless-docker@0.2.0
+    uses: ScribeMD/rootless-docker@0.2.1
   ```
 
 ## Supported Runners
