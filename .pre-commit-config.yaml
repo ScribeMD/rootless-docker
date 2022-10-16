@@ -17,7 +17,7 @@ repos:
 
   ## Python, Polyglot, Git, pre-commit
   - repo: https://github.com/ScribeMD/pre-commit-hooks
-    rev: 0.13.1
+    rev: 0.14.0
     hooks:
       - id: no-merge-commits
       - id: asdf-install
@@ -26,7 +26,7 @@ repos:
       - id: poetry-install
       - id: pre-commit-install
       - id: megalinter-incremental
-        args: &megalinter-args [--flavor, documentation, --release, v6.10.0]
+        args: &megalinter-args [--flavor, documentation, --release, v6.12.0]
       - id: megalinter-full
         args: *megalinter-args
 
