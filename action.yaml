@@ -47,7 +47,7 @@ runs:
 
         install_script_output="$(
           curl \
-          --fail \
+          --fail-with-body \
           --silent \
           --show-error \
           --location https://get.docker.com/rootless |
