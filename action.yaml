@@ -45,12 +45,14 @@ runs:
           return 1
         }
 
-        install_script_output="$(curl \
+        install_script_output="$(
+          curl \
           --fail \
           --silent \
           --show-error \
           --location https://get.docker.com/rootless |
-          sh)"
+          sh
+        )"
         echo "$install_script_output"
         docker context use rootless
         if grep --quiet 'systemd not detected, dockerd-rootless.sh needs to be started manually' <<<"$install_script_output"; then
