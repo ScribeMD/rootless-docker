@@ -55,7 +55,10 @@ runs:
         )"
         echo "$install_script_output"
         docker context use rootless
-        if grep --quiet 'systemd not detected, dockerd-rootless.sh needs to be started manually' <<<"$install_script_output"; then
+        if (
+          grep --quiet 'systemd not detected, dockerd-rootless.sh needs to be started manually' \
+          <<<"$install_script_output"
+        ); then
           (PATH="/sbin:/usr/sbin:$PATH" dockerd-rootless.sh &) |&
           awaitDockerd
         fi
