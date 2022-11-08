@@ -9,6 +9,7 @@ build-backend = "poetry.core.masonry.api"
     "pyproject.toml:version",
     "README.md:rootless-docker@"
   ]
+  major_version_zero = true
 
   [tool.poetry]
   name = "rootless-docker"
