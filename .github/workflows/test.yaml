@@ -20,7 +20,7 @@ jobs:
       - name: Use Docker in rootless mode.
         uses: ./
       - name: Run pre-commit hooks.
-        uses: ScribeMD/pre-commit-action@0.9.36
+        uses: ScribeMD/pre-commit-action@0.9.37
       - name: Send Slack notification with job status.
         if: always()
         uses: ScribeMD/slack-templates@0.6.13
