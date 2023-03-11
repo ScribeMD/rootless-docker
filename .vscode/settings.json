@@ -12,8 +12,5 @@
   "files.trimTrailingWhitespace": true,
   "git.branchProtection": ["main"],
   "python.defaultInterpreterPath": "./.venv/bin/python",
-  "python.terminal.activateEnvInCurrentTerminal": true,
-  "search.exclude": {
-    "poetry.lock": true
-  }
+  "python.terminal.activateEnvInCurrentTerminal": true
 }
