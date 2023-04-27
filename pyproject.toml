@@ -4,11 +4,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool]
   [tool.commitizen]
-  version = "0.2.2"
-  version_files = [
-    "pyproject.toml:version",
-    "README.md:rootless-docker@"
-  ]
+  version_provider = "poetry"
+  version_files = ["README.md:rootless-docker@"]
   major_version_zero = true
 
   [tool.poetry]
