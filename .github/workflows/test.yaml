@@ -23,7 +23,7 @@ jobs:
         uses: ScribeMD/pre-commit-action@0.9.86
       - name: Send Slack notification with job status.
         if: always()
-        uses: ScribeMD/slack-templates@0.6.27
+        uses: ScribeMD/slack-templates@0.6.28
         with:
           bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel-id: ${{ secrets.SLACK_ACTIONS_CHANNEL_ID }}
