@@ -17,6 +17,7 @@ jobs:
         uses: actions/checkout@v4.1.0
         with:
           fetch-depth: 0
+          filter: blob:none
       - name: Use Docker in rootless mode.
         uses: ./
       - name: Run pre-commit hooks.
