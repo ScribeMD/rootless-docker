@@ -14,16 +14,16 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Check out repository.
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: 0
       - name: Use Docker in rootless mode.
         uses: ./
       - name: Run pre-commit hooks.
-        uses: ScribeMD/pre-commit-action@0.9.116
+        uses: ScribeMD/pre-commit-action@aaa96559a813c7280f69aa91a73916dc3eabf19e # 0.9.116
       - name: Send Slack notification with job status.
         if: always()
-        uses: ScribeMD/slack-templates@0.6.33
+        uses: ScribeMD/slack-templates@fbd2fa66c991d2330e2a225a5b81217ed8ade9ae # 0.6.33
         with:
           bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel-id: ${{ secrets.SLACK_ACTIONS_CHANNEL_ID }}
