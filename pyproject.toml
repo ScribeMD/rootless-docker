@@ -9,6 +9,7 @@ build-backend = "poetry.core.masonry.api"
   major_version_zero = true
 
   [tool.poetry]
+  package-mode = false
   name = "rootless-docker"
   version = "0.2.2"
   description = "Run Docker in Rootless Mode to Prevent Permission Errors"
