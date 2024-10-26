@@ -28,6 +28,31 @@ runs:
       if: steps.rootless-docker.outputs.IN_USE != 'true'
       run: sudo systemctl stop docker.service
       shell: bash
+    - name: Check AppArmor version
+      id: apparmor
+      run: |
+        abi4_version="$(find /etc/apparmor.d/abi -maxdepth 1 -name '4.*' -printf '%f\n' | sort -nr | head -1)"
+        echo "ABI4_VERSION=$abi4_version" >>"$GITHUB_OUTPUT"
+      shell: bash
+    - name: Configure AppArmor
+      if: steps.rootless-docker.outputs.INSTALLED != 'true' && steps.apparmor.outputs.ABI4_VERSION != ''
+      env:
+        ABI4_VERSION: ${{ steps.apparmor.outputs.ABI4_VERSION }}
+      run: |
+        filename=$(echo $HOME/bin/rootlesskit | sed -e s@^/@@ -e s@/@.@g)
+        cat <<EOF > ~/${filename}
+        abi <abi/${ABI4_VERSION}>,
+        include <tunables/global>
+
+        "$HOME/bin/rootlesskit" flags=(unconfined) {
+          userns,
+
+          include if exists <local/${filename}>
+        }
+        EOF
+        sudo mv ~/${filename} /etc/apparmor.d/${filename}
+        sudo systemctl restart apparmor.service
+      shell: bash
     - name: Install rootless Docker, start daemon, and wait until it's listening.
       if: steps.rootless-docker.outputs.INSTALLED != 'true'
       run: |
