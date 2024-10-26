@@ -60,8 +60,7 @@ docker info --format "{{ .ClientInfo.Context }}"
 
 ## Supported Runners
 
-- Tested on `ubuntu-22.04`
-- Probably works on `ubuntu-18.04` and `ubuntu-20.04`
+- Tested on `ubuntu-24.04` and `ubuntu-22.04`
 - May work on future versions of Linux
 - Definitely doesn't work on Windows or macOS since Docker only offers rootless
   mode on Linux

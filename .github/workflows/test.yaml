@@ -1,4 +1,5 @@
 name: Test
+
 on:
   pull_request:
     branches:
@@ -8,21 +9,38 @@ on:
       - main
 permissions:
   contents: write # for pre-commit-action
+
 jobs:
-  test:
-    name: Test
-    runs-on: ubuntu-22.04
+  pre-commit:
+    name: Pre-commit Checks
+    runs-on: ubuntu-latest
     steps:
       - name: Check out repository.
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: 0
+      - name: Run pre-commit hooks.
+        uses: ScribeMD/pre-commit-action@bc61f671d0d1d526256c65f486e1f0a49da5f572 # 0.9.129
+
+  test-action:
+    name: Test Action
+    strategy:
+      matrix:
+        runner: [ubuntu-latest, ubuntu-24.04, ubuntu-22.04] # https://github.com/actions/runner-images?tab=readme-ov-file#available-images
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - name: Check out repository.
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - name: Use Docker in rootless mode.
         uses: ./
-      - name: Run pre-commit hooks.
-        uses: ScribeMD/pre-commit-action@832e026101148e0234fde20eecf91c08942ace4a # 0.9.127
+
+  notify:
+    name: Slack Notification
+    needs: [pre-commit, test-action]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
       - name: Send Slack notification with job status.
-        if: always()
         uses: ScribeMD/slack-templates@bea126c3915616204196f29d27d6ab9526d61a25 # 0.6.37
         with:
           bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
